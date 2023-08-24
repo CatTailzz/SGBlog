@@ -1,5 +1,6 @@
 package com.sangeng;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Create on : 2023/8/16 16:04
  **/
 @SpringBootApplication
-
+@MapperScan("com.sangeng.mapper")
 public class SanGengBlogApplication {
     public static void main(String[] args) {
         SpringApplication.run(SanGengBlogApplication.class, args);
