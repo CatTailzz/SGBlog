@@ -1,5 +1,6 @@
 package com.sangeng.controller;
 
+import com.sangeng.annotation.SystemLog;
 import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.entity.User;
 import com.sangeng.service.UserService;
@@ -24,6 +25,7 @@ public class UserController {
     }
 
     @PutMapping("/userInfo")
+    @SystemLog(BusinessName = "更新用户信息")
     public ResponseResult updateUserInfo(@RequestBody User user){
         return userService.updateUserInfo(user);
     }
