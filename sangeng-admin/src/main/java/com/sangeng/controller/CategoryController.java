@@ -13,11 +13,10 @@ import com.sangeng.utils.BeanCopyUtils;
 import com.sangeng.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.PushBuilder;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -42,6 +41,29 @@ public class CategoryController {
     public ResponseResult list(Integer pageNum, Integer pageSize, Category category){
         PageVo pagevo = categoryService.selectCategoryPage(pageNum, pageSize, category);
         return ResponseResult.okResult(pagevo);
+    }
+
+    @PostMapping()
+    public ResponseResult add(@RequestBody Category category){
+        return categoryService.add(category);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseResult getInfo(@PathVariable Long id){
+        Category category = categoryService.getById(id);
+        return ResponseResult.okResult(category);
+    }
+
+    @PutMapping
+    public ResponseResult edit(@RequestBody Category category){
+        categoryService.updateById(category);
+        return ResponseResult.okResult();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseResult remove(@PathVariable Long id){
+        categoryService.removeById(id);
+        return ResponseResult.okResult();
     }
 
     @PreAuthorize("@ps.hasPermission('content:category:export')")

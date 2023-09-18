@@ -1,8 +1,11 @@
 package com.sangeng.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sangeng.constants.SystemConstants;
 import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.entity.Role;
 import com.sangeng.domain.entity.RoleMenu;
@@ -13,9 +16,11 @@ import com.sangeng.service.RoleMenuService;
 import com.sangeng.service.RoleService;
 import com.sangeng.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,6 +93,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         //更新关联表
         roleMenuService.deleteRoleMenuByRoleId(role.getId());
         addRoleMenu(role);
+    }
+
+    @Override
+    public List<Role> selectRoleAll() {
+        return list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, SystemConstants.STATUS_NORMAL));
+    }
+
+    @Override
+    public List<Long> selectRoleIdByUserId(Long id) {
+        return getBaseMapper().selectRoleIdByUserId(id);
     }
 
     private void addRoleMenu(Role role) {

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 分类表(Category)表服务实现类
@@ -80,5 +79,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         pageVo.setTotal(page.getTotal());
         pageVo.setRows(categories);
         return pageVo;
+    }
+
+    @Override
+    public ResponseResult add(Category category) {
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper();
+        wrapper.eq(StringUtils.hasText(category.getName()), Category::getName, category.getName());
+        if(count(wrapper) > 0){
+            return ResponseResult.errorResult(500,"新增分类失败，请检查分类名");
+        }
+        save(category);
+        return ResponseResult.okResult();
     }
 }

@@ -6,6 +6,8 @@ import com.sangeng.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author zsj
  * @Description :
@@ -51,6 +53,12 @@ public class RoleController {
     public ResponseResult deleteById(@PathVariable Long id){
         roleService.removeById(id);
         return ResponseResult.okResult();
+    }
+
+    @GetMapping("/listAllRole")
+    public ResponseResult listAllRole(){
+        List<Role> roles = roleService.selectRoleAll();
+        return ResponseResult.okResult(roles);
     }
 
 }
