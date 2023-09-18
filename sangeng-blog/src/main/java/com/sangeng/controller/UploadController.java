@@ -22,6 +22,7 @@ public class UploadController {
 
     @PostMapping("/upload")
     public ResponseResult uploadImg(MultipartFile img){
+
         return uploadService.uploadImg(img);
     }
 }

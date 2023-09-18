@@ -20,8 +20,8 @@ import java.io.InputStream;
  * @Description :
  * @Create on : 2023/9/5 20:34
  **/
-@SpringBootTest
-@ConfigurationProperties(prefix = "oss")
+//@SpringBootTest
+//@ConfigurationProperties(prefix = "oss")
 public class OSSTest {
 
     private String accessKey;
